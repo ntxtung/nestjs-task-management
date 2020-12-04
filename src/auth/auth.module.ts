@@ -6,7 +6,7 @@ import { UserRepository } from './user.repository';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
-
+console.log('ENV', process.env.SECRET);
 @Module({
   imports: [
     PassportModule.register({
