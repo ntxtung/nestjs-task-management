@@ -11,5 +11,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true
-  }
+  },
+  "include": ["*.ts", "src/**/*.ts", "test/**/*.ts"], // will lint all .ts files in src and test
+  "exclude": []
 }
