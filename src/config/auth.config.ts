@@ -4,8 +4,8 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 export const authConfig: JwtModuleOptions = {
-  secret: process.env.AUTH_SECRET || 'EU|h>n#e9wa]S>%',
+  secret: process.env.AUTH_SECRET,
   signOptions: {
-    expiresIn: process.env.AUTH_EXPIRED_IN || 3600,
+    expiresIn: parseInt(process.env.AUTH_EXPIRED_IN) || 3600,
   },
 };
