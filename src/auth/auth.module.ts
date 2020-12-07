@@ -7,7 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 import { authConfig } from '../config/auth.config';
-console.log('ENV', process.env.SECRET);
+
 @Module({
   imports: [
     PassportModule.register({
