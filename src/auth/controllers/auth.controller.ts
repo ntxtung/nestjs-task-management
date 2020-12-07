@@ -1,21 +1,26 @@
 import {
   Body,
-  Controller, Logger,
+  Controller,
+  Inject,
+  Logger,
   Post,
   Req,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
-import { User } from './user.entity';
+import { AuthCredentialsDto } from '../shared/dtos/auth-credentials.dto';
+import { User } from '../entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from './decorators/get-user.decorator';
+import { GetUser } from '../shared/decorators/get-user.decorator';
+import { AuthServiceInterface } from '../services/auth.service.interface';
 
 @Controller('auth')
 export class AuthController {
   private logger = new Logger('AuthController');
-  constructor(private authService: AuthService) {
+  constructor(
+    @Inject('AuthServiceInterface')
+    private authService: AuthServiceInterface,
+  ) {
     this.logger.verbose('AuthController initializing...');
   }
 

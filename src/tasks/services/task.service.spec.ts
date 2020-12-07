@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TasksService } from './tasks.service';
-import { TaskRepository } from './task.repository';
+import { TaskRepository } from '../repositories/task.repository';
 
 const mockTaskRepository = () => ({
   getTasks: jest.fn(),
