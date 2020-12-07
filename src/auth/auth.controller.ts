@@ -1,6 +1,6 @@
 import {
   Body,
-  Controller,
+  Controller, Logger,
   Post,
   Req,
   UseGuards,
@@ -14,7 +14,10 @@ import { GetUser } from './decorators/get-user.decorator';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  private logger = new Logger('AuthController');
+  constructor(private authService: AuthService) {
+    this.logger.verbose('AuthController initializing...');
+  }
 
   @Post('/signup')
   signUp(

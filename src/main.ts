@@ -5,6 +5,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { ConfigService } from '@nestjs/config';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -13,7 +14,12 @@ async function bootstrap() {
   );
   app.enableCors();
   const configService = app.get(ConfigService);
-  await app.listen(configService.get('PORT'), '0.0.0.0');
+  const appName = configService.get('APP_NAME');
+  const host = configService.get('APP_HOST');
+  const port = configService.get('APP_PORT');
+  const logger = new Logger('bootstrap');
+  await app.listen(port, host);
+  logger.log(`App ${appName} is listening on ${host}:${port}`);
 }
 
 bootstrap();
