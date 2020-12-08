@@ -1,9 +1,9 @@
 import { AuthCredentialsDto } from '../shared/dtos/auth-credentials.dto';
 import { User } from '../entities/user.entity';
 
-export abstract class IAuthService {
+export abstract class IUserRepository {
   public abstract signUp(authCredentialsDto: AuthCredentialsDto): Promise<User>;
-  public abstract signIn(
+  public abstract validateUserPassword(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ accessToken }>;
+  ): Promise<string>;
 }

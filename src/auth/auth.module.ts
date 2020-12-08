@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -7,9 +7,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './services/jwt.strategy';
 import { authConfig } from '../config/auth.config';
-import { AuthServiceInterface } from './services/auth.service.interface';
+import { IAuthService } from './services/auth.service.interface';
+import { IUserRepository } from './repositories/user.repository.interface';
 
-console.log(authConfig);
+const logger = new Logger();
+logger.verbose(`Auth config: ${JSON.stringify(authConfig, null, 2)}`);
+
 @Module({
   imports: [
     PassportModule.register({
@@ -22,8 +25,12 @@ console.log(authConfig);
   providers: [
     JwtStrategy,
     {
-      provide: 'AuthServiceInterface',
+      provide: IAuthService,
       useClass: AuthService,
+    },
+    {
+      provide: IUserRepository,
+      useClass: UserRepository,
     },
   ],
   exports: [JwtStrategy, PassportModule],

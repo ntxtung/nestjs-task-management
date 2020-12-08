@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Inject,
   Logger,
   Post,
   Req,
@@ -12,15 +11,12 @@ import { AuthCredentialsDto } from '../shared/dtos/auth-credentials.dto';
 import { User } from '../entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../shared/decorators/get-user.decorator';
-import { AuthServiceInterface } from '../services/auth.service.interface';
+import { IAuthService } from '../services/auth.service.interface';
 
 @Controller('auth')
 export class AuthController {
   private logger = new Logger('AuthController');
-  constructor(
-    @Inject('AuthServiceInterface')
-    private authService: AuthServiceInterface,
-  ) {
+  constructor(private authService: IAuthService) {
     this.logger.verbose('AuthController initializing...');
   }
 

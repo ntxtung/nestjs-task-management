@@ -4,20 +4,28 @@ import * as bcrypt from 'bcrypt';
 import { AuthCredentialsDto } from '../shared/dtos/auth-credentials.dto';
 import {
   ConflictException,
+  Injectable,
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
+import { IUserRepository } from './user.repository.interface';
 
 @EntityRepository(User)
-export class UserRepository extends Repository<User> {
+@Injectable()
+export class UserRepository
+  extends Repository<User>
+  implements IUserRepository {
   private logger: Logger = new Logger('UserRepository');
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<User> {
     const { username, password } = authCredentialsDto;
 
-    const user = new User();
-    user.username = username;
-    user.salt = await bcrypt.genSalt();
-    user.password = await this.hashPassword(password, user.salt);
+    const salt = await bcrypt.genSalt();
+
+    const user = new User({
+      username,
+      salt,
+      password: await this.hashPassword(password, salt),
+    });
 
     try {
       return await user.save();
