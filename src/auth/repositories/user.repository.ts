@@ -5,10 +5,12 @@ import { AuthCredentialsDto } from '../shared/dtos/auth-credentials.dto';
 import {
   ConflictException,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
+  private logger: Logger = new Logger('UserRepository');
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<User> {
     const { username, password } = authCredentialsDto;
 
@@ -21,7 +23,7 @@ export class UserRepository extends Repository<User> {
       return await user.save();
     } catch (exception) {
       // if (exception instanceof QueryFailedError) {
-      console.log(exception);
+      this.logger.error(`Exception occurred: ${exception.stack}`);
       if (exception.code === '23505') {
         throw new ConflictException(`Username "${username}" already exist`);
       } else {

@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Task } from '../../tasks/entities/task.entity';
+
 @Entity()
 @Unique(['username'])
 export class User extends BaseEntity {
