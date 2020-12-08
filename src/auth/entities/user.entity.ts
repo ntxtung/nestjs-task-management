@@ -37,11 +37,11 @@ export class User extends BaseEntity implements IUser {
   constructor(user?: IUser) {
     super();
     if (user) {
-      this.id = user.id || undefined;
+      // this.id = user.id || undefined;
       this.username = user.username || undefined;
       this.password = user.password || undefined;
       this.salt = user.salt || undefined;
-      this.tasks = user.tasks || undefined;
+      // this.tasks = user.tasks || undefined;
     }
   }
 

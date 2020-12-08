@@ -16,6 +16,7 @@ export class UserRepository
   extends Repository<User>
   implements IUserRepository {
   private logger: Logger = new Logger('UserRepository');
+
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<User> {
     const { username, password } = authCredentialsDto;
 
