@@ -16,6 +16,7 @@ import { IAuthService } from '../services/auth.service.interface';
 @Controller('auth')
 export class AuthController {
   private logger = new Logger('AuthController');
+
   constructor(private authService: IAuthService) {
     this.logger.verbose('AuthController initializing...');
   }

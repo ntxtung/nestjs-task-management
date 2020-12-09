@@ -11,11 +11,12 @@ import { Task } from '../../tasks/entities/task.entity';
 
 export interface IUser {
   id?: number;
-  username: string;
-  password: string;
-  salt: string;
+  username?: string;
+  password?: string;
+  salt?: string;
   tasks?: Task[];
 }
+
 @Entity()
 @Unique(['username'])
 export class User extends BaseEntity implements IUser {
