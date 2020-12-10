@@ -10,7 +10,7 @@ module.exports = {
   password: process.env.PG_DB_PASSWORD || 'postgres',
   database: process.env.PG_DB_DATABASE || 'taskmanagement',
   entities: ['src/**/**.entity.{js,ts}'],
-  migrations: ['src/migrations/*.js'],
+  migrations: ['src/migrations/*.{js,ts}'],
   cli: {
     migrationsDir: 'src/migrations',
   },
