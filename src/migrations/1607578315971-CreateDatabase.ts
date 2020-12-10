@@ -1,7 +1,15 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
+import * as dotenv from 'dotenv';
 
 export class CreateDatabase1607578315971 implements MigrationInterface {
+  private databaseName: string;
   name = 'CreateDatabase1607578315971';
+  constructor() {
+    dotenv.config();
+    const { PG_DB_DATABASE } = process.env;
+
+    this.databaseName = PG_DB_DATABASE;
+  }
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
