@@ -11,7 +11,12 @@ const postgresDbConfig: TypeOrmModuleOptions = {
   password: process.env.PG_DB_PASSWORD || 'postgres',
   database: process.env.PG_DB_DATABASE || 'task-management',
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
-  synchronize: true,
+  // synchronize: true, // Unsafe
+  // migrationsTableName: process.env.PG_DB_DATABASE || 'task-management',
+  migrations: ['migration/*.js'],
+  cli: {
+    migrationsDir: 'migration',
+  },
 };
 
 export default postgresDbConfig;
