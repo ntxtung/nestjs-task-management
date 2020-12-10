@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable */
 import { Test } from '@nestjs/testing';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -38,11 +39,11 @@ describe('UserRepository', () => {
           inject: [ConfigService],
           useFactory: async (configService: ConfigService) => ({
             type: 'postgres',
-            host: configService.get('DB_HOST', 'localhost'),
-            port: configService.get<number>('DB_PORT', 5432),
-            username: configService.get('DB_USERNAME', 'postgres'),
-            password: configService.get('DB_PASSWORD', 'postgres'),
-            database: configService.get('DB_DATABASE', 'taskmanagement_test'),
+            host: configService.get('PG_DB_HOST', 'localhost'),
+            port: configService.get<number>('PG_DB_PORT', 5432),
+            username: configService.get('PG_DB_USERNAME', 'postgres'),
+            password: configService.get('PG_DB_PASSWORD', 'postgres'),
+            database: configService.get('PG_DB_DATABASE', 'taskmanagement_test'),
             entities: [User, Task],
             synchronize: true,
           }),

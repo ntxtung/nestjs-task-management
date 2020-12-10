@@ -9,6 +9,7 @@ import { JwtStrategy } from './services/jwt.strategy';
 import { authConfig } from '../config/auth.config';
 import { IAuthService } from './services/auth.service.interface';
 import { IUserRepository } from './repositories/user.repository.interface';
+import { User } from './entities/user.entity';
 
 const logger = new Logger();
 logger.verbose(`Auth config: ${JSON.stringify(authConfig, null, 2)}`);

@@ -16,7 +16,7 @@ export class TasksService {
     private taskRepository: TaskRepository,
   ) {}
 
-  async getAllTasks(filterDto: GetTasksFilterDto, user: User): Promise<Task[]> {
+  async getTasks(filterDto: GetTasksFilterDto, user: User): Promise<Task[]> {
     // return this.tasks;
     return await this.taskRepository.getTasks(filterDto, user);
   }
@@ -37,7 +37,7 @@ export class TasksService {
     return this.taskRepository.createTask(createTaskDto, user);
   }
 
-  async deleteTaskById(id, user): Promise<void> {
+  async deleteTaskById(id: number, user: User): Promise<void> {
     return this.taskRepository.deleteTask(id, user);
   }
 

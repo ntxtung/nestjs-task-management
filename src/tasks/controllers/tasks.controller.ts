@@ -42,7 +42,7 @@ export class TasksController {
         filterDto,
       )}`,
     );
-    return this.taskServices.getAllTasks(filterDto, user);
+    return this.taskServices.getTasks(filterDto, user);
   }
 
   @Get('/:id')
