@@ -12,8 +12,6 @@ import { Connection } from 'typeorm';
 export class AuthService implements IAuthService {
   private userRepository: UserRepository;
   constructor(
-    // @InjectRepository(UserRepository)
-    // private userRepository: UserRepository,
     private readonly connection: Connection,
     private jwtService: JwtService,
   ) {
