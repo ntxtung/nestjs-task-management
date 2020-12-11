@@ -8,16 +8,17 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { IUserRepository } from './user.repository.interface';
 
-@EntityRepository(User)
 @Injectable()
-export class UserRepository
-  extends Repository<User>
-  implements IUserRepository {
+@EntityRepository(User)
+export class UserRepository extends Repository<User> {
   private logger: Logger = new Logger('UserRepository');
 
-  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<User> {
+  constructor() {
+    super();
+  }
+
+  public async signUp(authCredentialsDto: AuthCredentialsDto): Promise<User> {
     const { username, password } = authCredentialsDto;
 
     const salt = await bcrypt.genSalt();
@@ -41,18 +42,17 @@ export class UserRepository
     }
   }
 
-  async validateUserPassword(
+  public async validateUserPassword(
     authCredentialsDto: AuthCredentialsDto,
   ): Promise<string> {
     const { username, password } = authCredentialsDto;
-    if (username && password) {
-      const user = await this.findOne({ username });
+    const user = await this.findOne({ username });
 
-      if (user && (await user.validatePassword(password))) {
-        return user.username;
-      }
+    if (user && (await user.validatePassword(password))) {
+      return user.username;
+    } else {
+      return null;
     }
-    return null;
   }
 
   private async hashPassword(password: string, salt: string): Promise<string> {

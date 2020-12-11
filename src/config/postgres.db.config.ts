@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 const postgresDbConfig: TypeOrmModuleOptions = {
-  name: 'postgres_db',
+  // name: 'postgres_db',
   type: 'postgres',
   host: process.env.PG_DB_HOST || 'localhost',
   port: parseInt(process.env.PG_DB_PORT) || 5432,

@@ -4,15 +4,21 @@ import { User } from '../entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from '../shared/interfaces/jwt-payload.interface';
 import { IAuthService } from './auth.service.interface';
-import { IUserRepository } from '../repositories/user.repository.interface';
+import { UserRepository } from '../repositories/user.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
 
 @Injectable()
 export class AuthService implements IAuthService {
+  private userRepository: UserRepository;
   constructor(
     // @InjectRepository(UserRepository)
-    private userRepository: IUserRepository,
+    // private userRepository: UserRepository,
+    private readonly connection: Connection,
     private jwtService: JwtService,
-  ) {}
+  ) {
+    this.userRepository = this.connection.getCustomRepository(UserRepository);
+  }
 
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<User> {
     return await this.userRepository.signUp(authCredentialsDto);

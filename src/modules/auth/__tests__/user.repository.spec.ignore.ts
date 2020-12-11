@@ -3,7 +3,6 @@
 import { Test } from '@nestjs/testing';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { IUserRepository } from '../repositories/user.repository.interface';
 import { UserRepository } from '../repositories/user.repository';
 import { User } from '../entities/user.entity';
 import { Task } from '../../tasks/entities/task.entity';
@@ -26,7 +25,7 @@ const userRegistrationGoodExample: AuthCredentialsDto[] = [
 ];
 
 describe('UserRepository', () => {
-  let userRepository: IUserRepository;
+  let userRepository: UserRepository;
 
   beforeAll(async () => {
     const mockModule = await Test.createTestingModule({
@@ -51,14 +50,11 @@ describe('UserRepository', () => {
         TypeOrmModule.forFeature([UserRepository]),
       ],
       providers: [
-        {
-          provide: IUserRepository,
-          useClass: UserRepository,
-        },
+        UserRepository
       ],
     }).compile();
 
-    userRepository = mockModule.get<IUserRepository>(UserRepository);
+    userRepository = mockModule.get<UserRepository>(UserRepository);
   });
 
   beforeEach(async () => {

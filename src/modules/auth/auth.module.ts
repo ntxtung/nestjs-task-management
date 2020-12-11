@@ -8,8 +8,6 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './services/jwt.strategy';
 import { authConfig } from '../../config/auth.config';
 import { IAuthService } from './services/auth.service.interface';
-import { IUserRepository } from './repositories/user.repository.interface';
-import { User } from './entities/user.entity';
 
 const logger = new Logger();
 logger.verbose(`Auth config: ${JSON.stringify(authConfig, null, 2)}`);
@@ -25,13 +23,10 @@ logger.verbose(`Auth config: ${JSON.stringify(authConfig, null, 2)}`);
   controllers: [AuthController],
   providers: [
     JwtStrategy,
+    UserRepository,
     {
       provide: IAuthService,
       useClass: AuthService,
-    },
-    {
-      provide: IUserRepository,
-      useClass: UserRepository,
     },
   ],
   exports: [JwtStrategy, PassportModule],
