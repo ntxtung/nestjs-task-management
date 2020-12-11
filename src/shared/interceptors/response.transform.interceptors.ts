@@ -7,15 +7,14 @@ export interface SuccessResponse<T> {
   data: T;
 }
 
-export class SuccessResponseTransformInterceptors<T>
+export class ResponseTransformInterceptors<T>
   implements NestInterceptor<T, SuccessResponse<T>> {
   intercept(
     context: ExecutionContext,
     next: CallHandler<T>,
   ): Observable<SuccessResponse<T>> | Promise<Observable<SuccessResponse<T>>> {
-    return next
-      .handle()
-      .pipe(map((data) => ({
+    return next.handle().pipe(
+      map((data) => ({
         code: context.switchToHttp().getResponse().statusCode,
         data,
       })),

@@ -6,6 +6,7 @@ import {
 } from '@nestjs/platform-fastify';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
+import { HttpExceptionFilter } from './shared/interceptors/httpException.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -14,6 +15,9 @@ async function bootstrap() {
   );
   app.enableCors();
   const configService = app.get(ConfigService);
+
+  app.useGlobalFilters(new HttpExceptionFilter());
+
   const appName = configService.get('APP_NAME');
   const host = configService.get('APP_HOST');
   const port = configService.get('APP_PORT');

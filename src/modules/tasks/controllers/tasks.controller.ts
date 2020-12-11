@@ -8,8 +8,8 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Query,
-  UseGuards,
+  Query, UseFilters,
+  UseGuards, UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -22,9 +22,11 @@ import { Task } from '../entities/task.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../../auth/shared/decorators/get-user.decorator';
 import { User } from '../../auth/entities/user.entity';
+import { ResponseTransformInterceptors } from '../../../shared/interceptors/response.transform.interceptors';
 
 @Controller('tasks')
 @UseGuards(AuthGuard())
+@UseInterceptors(ResponseTransformInterceptors)
 export class TasksController {
   private logger = new Logger('TaskController');
 
